@@ -1,5 +1,25 @@
 extends layout
 
+block scripts
+	script(src="http://malsup.github.com/jquery.form.js")
+	script(src="/javascripts/index.js")
+
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	p Welcome to #{title}
+	
+	div#loading(style="display:none;")
+		div Uploading image...
+		div
+			img(src="http://www.robdedel.nl/wpimages/wpf31870f0.gif")
+	
+	div#uploader
+		form#uploadForm(action="/upload", method="post", enctype="multipart/form-data")
+			div#status Current Status
+			div#form-group
+				label(for="upload") Upload a photo of your workout from your erg's PM (from memory screen):
+				input(type="file", id="upload", name="pm")
+				input(type="submit", value="Upload")
+	
+	div
+		img#result(style="height:200px;display:none;")
