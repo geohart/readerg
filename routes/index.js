@@ -1,19 +1,14 @@
-/* Todo: 
-update interface: 
-	nice form, 
-	digital representation of pm with edits
-save workout
-point to readerg.ghart.org
-*/
-
 var express 	= require('express');
+var config		= require('../config');
 var AWS 		= require('aws-sdk');
 var vision 		= require('@google-cloud/vision')({
-	projectId: 'ergvision-143823',
-	keyFilename: './private/googleCredential.json'
+	projectId: config.googleProjectID,
+	credentials: {
+		client_email: config.googleClientEmail,
+		private_key: config.googlePrivateKey
+	}
 });
 var multer		= require('multer');
-var config		= require('../private/config');
 var router		= express.Router();
 var func			= require('./functions');
 
