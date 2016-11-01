@@ -2,24 +2,33 @@ extends layout
 
 block scripts
 	script(src="http://malsup.github.com/jquery.form.js")
+	script(src="/javascripts/bootstrap-filestyle.min.js")
 	script(src="/javascripts/index.js")
 
 block content
-	h1= title
-	p Welcome to #{title}
+	div
+		img(src="/images/banner.png", class="img-responsive", style="max-height:200px;margin:auto;")
 	
-	div#loading(style="display:none;")
-		div Uploading image...
-		div
-			img(src="http://www.robdedel.nl/wpimages/wpf31870f0.gif")
-	
+	div(class="text-center")
+		h3(style="margin-bottom:25px;") Track your erg workouts with photos.
+
 	div#uploader
 		form#uploadForm(action="/upload", method="post", enctype="multipart/form-data")
-			div#status Current Status
-			div#form-group
-				label(for="upload") Upload a photo of your workout from your erg's PM (from memory screen):
-				input(type="file", id="upload", name="pm")
-				input(type="submit", value="Upload")
+			div.form-group
+				label(for="choose") Upload a photo of your erg's PM (from the memory screen):
+				input(type="file", id="upload", name="pm", class="filestyle", data-icon="false", data-buttonText="Select Photo", data-size="lg")
+			div.form-group
+				input(type="submit", class="btn btn-default btn-block btn-lg btn-primary", value="Submit")
+
+	div#loading(style="display:none;", class="text-center")
+		h4 Uploading Image...
+		img(src="http://www.robdedel.nl/wpimages/wpf31870f0.gif", class="img-responsive", style="display:none")
+		img(src="/images/rolling.svg", class="img-responsive center-block")
 	
-	div
-		img#result(style="height:200px;display:none;")
+	div#processing(style="display:none;", class="text-center")
+		h4 Processing Upload...
+		img(src="/images/rolling.svg", class="img-responsive center-block")
+		
+	div#processed(style="display:none;", class="text-center")
+		h4 Processed Photo...
+		img#result(class="img-responsive center-block")

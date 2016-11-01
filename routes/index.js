@@ -1,3 +1,11 @@
+/* Todo: 
+update interface: 
+	nice form, 
+	digital representation of pm with edits
+save workout
+point to readerg.ghart.org
+*/
+
 var express 	= require('express');
 var config		= require('../config');
 var AWS 		= require('aws-sdk');

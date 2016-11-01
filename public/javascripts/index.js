@@ -7,9 +7,10 @@ $(function() {
             error: function(xhr) {
 				status('Error: ' + xhr.status);
             }, success: function(response) {
-				$('#status').empty().text("File uploaded successfully to <a href='" + response.src + "'>" + response.src + "</a>");
-				$('img#result').attr('src', response.src).show();
+				$('img#result').attr('src', response.src);
 				$('#loading').hide();
+				$('#processing').show();
+				// call processing step
                 console.log(response);
             }
 		});
