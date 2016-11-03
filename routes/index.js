@@ -27,7 +27,7 @@ AWS.config.update({accessKeyId: config.accessKey, secretAccessKey: config.secret
 var storage	= multer.memoryStorage();
 var upload		= multer({ storage: storage });
 
-/*********** Get Views ***********/
+/*********** VIEWS ***********/
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -35,13 +35,12 @@ router.get('/', function(req, res, next) {
 });
 
 
-/*********** GET ROUTES **************/
+/*********** GET/POST ROUTES ***********/
 
 /* post image to aws s3 */
 router.post('/upload', upload.single('pm'), function(req, res, next){
 	
-	console.log(req.params);
-	console.log(req.file);
+	console.log('Uploading photo...');
 
 	var s3 = new AWS.S3({signatureVersion: 'v4'});
 	
@@ -58,7 +57,7 @@ router.post('/upload', upload.single('pm'), function(req, res, next){
 				if (err){
 					console.log(err);
 				} else {
-					console.log('Successfully uploaded data to readerg/' + code + '.jpg');
+					console.log('Successfully uploaded data to https://s3.us-east-2.amazonaws.com/readerg/' + code + '.jpg');
 					
 					// once uploaded, reply with url to image
 					res.send({src: 'https://s3.us-east-2.amazonaws.com/readerg/' + code + '.jpg'});
@@ -72,17 +71,20 @@ router.post('/upload', upload.single('pm'), function(req, res, next){
 /* process image with google vision api */
 router.get('/process', function(req, res, next){
 	
+	console.log('Processing text...');
+	
 	var url = req.query.path;
 	
 	vision.detectText(url, function(err, text, apiResponse){
 		
 		if (err) { return next(err); }
 		
+		console.log('Successfully processed text.');		
 		res.send({text: text, response: apiResponse});
 		
 	});
 	
-	//res.send('done');
+	//res.send('URL: ' + url);
 	
 });
 
