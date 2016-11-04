@@ -11,7 +11,7 @@ block content
 	
 	div(class="text-center")
 		h3(style="margin-bottom:25px;") Track your erg workouts with photos.
-		
+	
 	div#uploader
 		form#uploadForm(action="/upload", method="post", enctype="multipart/form-data")
 			div.form-group
@@ -20,42 +20,44 @@ block content
 			div.form-group
 				input(type="submit", class="btn btn-default btn-block btn-lg btn-primary", value="Submit")
 
+	div#status(style="display:none;")
+		div#loading(class="text-center")
+			h4#currentStatus Uploading Image...
+			img(src="http://www.robdedel.nl/wpimages/wpf31870f0.gif", class="img-responsive", style="display:none")
+			img(src="/images/rolling.svg", class="img-responsive center-block")
+	
 	div#results(style="display:none;")
 		ul(class="nav nav-pills", role="tablist")
-			li#phototab(role="presentation", class="active")
+			li#phototab(role="presentation")
 				a(href="#photo", aria-controls="photo", role="tab", data-toggle="tab") Photo
-			li#datatab(role="presentation")
+			li#datatab(role="presentation", class="active")
 				a(href="#data", aria-controls="data", role="tab", data-toggle="tab") Data
-				
-		div(class="tab-content", style="margin-top:20px;")
-			div(role="tabpanel", class="tab-pane active", id="photo")
-				div#loading(class="text-center")
-					h4 Uploading Image...
-					img(src="http://www.robdedel.nl/wpimages/wpf31870f0.gif", class="img-responsive", style="display:none")
-					img(src="/images/rolling.svg", class="img-responsive center-block")
-				div#loaded(style="display:none;")
-					img#result(class="img-responsive center-block")
-			div(role="tabpanel", class="tab-pane", id="data")
-				div#processing(class="text-center")
-					h4 Processing Text...
-					img(src="/images/rolling.svg", class="img-responsive center-block")
-				div#processed(style="display:none;")
-					form#stats
-						div.form-group
-							label(for="mydate") Workout Date:
-							input(type="text", id="mydate", name="mydate", class="form-control input-lg", placeholder="Workout Date")
-						div.form-group
-							label(for="mytime") Total Time:
-							input(type="text", id="mytime", name="mytime", class="form-control input-lg", placeholder="Total Time")
-						div.form-group
-							label(for="mydistance") Total Distance:
-							input(type="text", id="mydistance", name="mydistance", class="form-control input-lg", placeholder="Total Distance")
-						div.form-group
-							label(for="mysplit") Split:
-							input(type="text", id="mysplit", name="mysplit", class="form-control input-lg", placeholder="Split")
-						div.form-group
-							label(for="mystrokerate") Stroke Rate:
-							input(type="text", id="mystrokerate", name="mystrokerate", class="form-control input-lg", placeholder="Stroke Rate")
-						div.form-group
-							input(type="submit", class="btn btn-default btn-block btn-lg btn-primary", value="Submit")
 		
+		div(id="alert", class="alert alert-warning", role="alert", style="margin-top:10px;display:none;")
+			button(type="button", class="close", data-dismiss="alert", aria-label="Close")
+				span(aria-hidden="true")&times;
+			| <strong id="messageTitle"></strong><span id="message"></span>
+			
+		div(class="tab-content", style="margin-top:20px;")
+			div(role="tabpanel", class="tab-pane", id="photo")
+				img#result(class="img-responsive center-block")
+			div(role="tabpanel", class="tab-pane active", id="data")
+				form#stats
+					div.form-group
+						label(for="mydate") Workout Date:
+						input(type="text", id="mydate", name="mydate", class="form-control input-lg", placeholder="Workout Date")
+					div.form-group
+						label(for="mytime") Total Time:
+						input(type="text", id="mytime", name="mytime", class="form-control input-lg", placeholder="Total Time")
+					div.form-group
+						label(for="mydistance") Total Distance:
+						input(type="text", id="mydistance", name="mydistance", class="form-control input-lg", placeholder="Total Distance")
+					div.form-group
+						label(for="mysplit") Split:
+						input(type="text", id="mysplit", name="mysplit", class="form-control input-lg", placeholder="Split")
+					div.form-group
+						label(for="mystrokerate") Stroke Rate:
+						input(type="text", id="mystrokerate", name="mystrokerate", class="form-control input-lg", placeholder="Stroke Rate")
+					div.form-group
+						input(type="submit", class="btn btn-default btn-block btn-lg btn-primary", value="Save")
+	
