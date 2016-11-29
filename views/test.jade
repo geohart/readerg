@@ -12,7 +12,7 @@ block content
 	div(class="text-center")
 		h3(style="margin-bottom:25px;") Track your erg workouts with photos.
 	
-	div#uploader
+	div#uploader(style="display:none;")
 		form#uploadForm(action="/upload", method="post", enctype="multipart/form-data")
 			div.form-group
 				label(for="choose") Upload a photo of your erg's PM (from the memory screen):
@@ -26,7 +26,7 @@ block content
 			img(src="http://www.robdedel.nl/wpimages/wpf31870f0.gif", class="img-responsive", style="display:none")
 			img(src="/images/rolling.svg", class="img-responsive center-block")
 	
-	div#results(style="display:none;")
+	div#results(style="display:block;")
 		ul(class="nav nav-pills", role="tablist")
 			li#phototab(role="presentation")
 				a(href="#photo", aria-controls="photo", role="tab", data-toggle="tab") Photo
@@ -45,20 +45,20 @@ block content
 				form#stats(action="/save", method="post")
 					div.form-group
 						label(for="mydate") Workout Date:
-						input(type="text", id="mydate", name="mydate", class="form-control input-lg", placeholder="Workout Date")
+						input(type="text", id="mydate", name="mydate", class="form-control input-lg", placeholder="Workout Date", value="10/7/2016")
 					div.form-group
 						label(for="mytime") Total Time:
-						input(type="text", id="mytime", name="mytime", class="form-control input-lg", placeholder="Total Time")
+						input(type="text", id="mytime", name="mytime", class="form-control input-lg", placeholder="Total Time", value="38:23.2")
 					div.form-group
 						label(for="mydistance") Total Distance:
-						input(type="text", id="mydistance", name="mydistance", class="form-control input-lg", placeholder="Total Distance")
+						input(type="text", id="mydistance", name="mydistance", class="form-control input-lg", placeholder="Total Distance", value="10000")
 					div.form-group
 						label(for="mysplit") Split:
-						input(type="text", id="mysplit", name="mysplit", class="form-control input-lg", placeholder="Split")
+						input(type="text", id="mysplit", name="mysplit", class="form-control input-lg", placeholder="Split", value="1:57.3")
 					div.form-group
 						label(for="mystrokerate") Stroke Rate:
-						input(type="text", id="mystrokerate", name="mystrokerate", class="form-control input-lg", placeholder="Stroke Rate")
+						input(type="text", id="mystrokerate", name="mystrokerate", class="form-control input-lg", placeholder="Stroke Rate", value="20")
 					div.form-group
-						input(type="hidden", id="myuploadid", name="myuploadid")
+						input(type="hidden", id="myuploadid", name="myuploadid", value="1")
 						input(type="submit", class="btn btn-default btn-block btn-lg btn-primary", value="Save")
 	

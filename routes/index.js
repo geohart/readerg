@@ -1,11 +1,3 @@
-/* Todo: 
-update interface: 
-	nice form, 
-	digital representation of pm with edits
-save workout
-point to readerg.ghart.org
-*/
-
 var express 	= require('express');
 var config		= require('../config');
 var AWS 		= require('aws-sdk');
@@ -18,7 +10,8 @@ var vision 		= require('@google-cloud/vision')({
 });
 var multer		= require('multer');
 var router		= express.Router();
-var func			= require('./functions');
+var func		= require('./functions');
+var model		= require('./model');
 
 // configure AWS
 AWS.config.update({accessKeyId: config.accessKey, secretAccessKey: config.secretAccessKey});
@@ -27,11 +20,29 @@ AWS.config.update({accessKeyId: config.accessKey, secretAccessKey: config.secret
 var storage	= multer.memoryStorage();
 var upload		= multer({ storage: storage });
 
+// setup session object
+var session;
+
 /*********** VIEWS ***********/
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'ReadErg' });
+});
+
+/* GET home page. */
+router.get('/test', function(req, res, next) {
+  res.render('test', { title: 'ReadErg' });
+});
+
+/* GET user view */
+router.get('/user/:id', function(req, res, next){
+	res.render('user', { title: 'ReadErg' });
+});
+
+/* GET workout view */
+router.get('/workout/:id', function(req, res, next){
+	res.render('workout', {title: 'ReadErg' });
 });
 
 
@@ -183,15 +194,85 @@ router.get('/process', function(req, res, next){
 		for(i=0; i<sorted.length; i++){
 			text.push(sorted[i].description);
 		}
-
-		// return results
-		result = { "status" : status, "fields" : text };
 		
-		console.log(result);
+		// save upload and processed text from vision api
+		var photo = new model.Photo({
+			  url: url
+			, text: JSON.stringify(apiResponse)
+		});
 		
-		res.send(result);
-		
+		photo.save(function(err, photo){
+			if(err) return next(err);
+			
+			// return results
+			result = { "status" : status, "fields" : text, "uploadId" : photo._id };
+			console.log(result);
+			res.send(result);
+		});
 	});
+});
+
+router.post('/save', function(req, res, next){
+	
+	console.log('Data received...');
+	
+	console.log(req.body);
+	
+	// check for logged in user
+	var username = req.session.username;
+	
+	// check for required fields and do basic error checking
+	if(req.body.mytime && req.body.mydistance && req.body.mytime.trim() != "" && req.body.mydistance.trim() != ""){
+		
+		// create a new interval object
+		var interval = new model.Interval({
+			  distance: req.body.mydistance
+			, duration: req.body.mytime
+			, split: req.body.mysplit
+			, strokerate: req.body.mystrokerate
+		});
+		
+		// create a new workout object
+		var workout = new model.Workout({
+			  uploadId: req.body.myuploadid
+			, date: 0
+			, intervals: []
+			, rest: 0
+		});
+		
+		// append interval to workout
+		workout.intervals.push(interval);
+		
+		// check whether a user exists
+		if(username){
+			
+			// append to user object's workouts
+			user.workouts.push(workout);
+		
+			// save user
+			user.save(function(err, user){
+				if (err) return next(err);
+				
+				// route to user view
+				res.redirect('/user/' + user._id);
+				
+			});
+			
+		} else {
+			// otherwise, save workout and route to workout view -- give user an opportunity to login to claim later
+			workout.save(function(err, user){
+				if(err) return next(err);
+				
+				// route to workout view
+				res.redirect('/workout/' + workout._id);
+				
+			});
+		}
+		
+	} else {
+		res.status(400).send({'message' : 'Error. Missing values for interval time and/or distance.'});
+	}
+	
 });
 
 module.exports = router;

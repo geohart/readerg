@@ -31,6 +31,7 @@ $(function() {
 					$('#mydistance').val(results.fields[1]);
 					$('#mysplit').val(results.fields[2]);
 					$('#mystrokerate').val(results.fields[3]);
+					$('#myuploadid').val(results.uploadId);
 					
 					// display alert message as needed
 					if(results.status == 0){
