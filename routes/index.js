@@ -224,18 +224,29 @@ router.post('/save', function(req, res, next){
 	// check for required fields and do basic error checking
 	if(req.body.mytime && req.body.mydistance && req.body.mytime.trim() != "" && req.body.mydistance.trim() != ""){
 		
+		// convert date, time, and split into numeric formats
+		var date = new Date(req.body.mydate).getTime();
+		var split = req.body.mysplit.trim().split(":", 2);
+		split = split[0] * 60 + split[1] * 1 
+		var time = req.body.mytime.trim().split(":", 3);
+		if(time.length > 2){
+			time = time[0] * 60 * 60 + time[1] * 60 + time[0] * 1;
+		} else {
+			time = time[0] * 60 + time[1] * 1;
+		}
+		
 		// create a new interval object
 		var interval = new model.Interval({
 			  distance: req.body.mydistance
-			, duration: req.body.mytime
-			, split: req.body.mysplit
+			, duration: time
+			, split: split
 			, strokerate: req.body.mystrokerate
 		});
 		
 		// create a new workout object
 		var workout = new model.Workout({
 			  uploadId: req.body.myuploadid
-			, date: 0
+			, date: date
 			, intervals: []
 			, rest: 0
 		});
