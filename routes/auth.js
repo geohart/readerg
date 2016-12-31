@@ -1,6 +1,7 @@
 var express	= require('express');
 var passport 	= require('passport');
 var model 		= require('./model');
+var config		= require('../config');
 
 // declare instance of express router
 var router = express.Router();
@@ -43,9 +44,9 @@ reroute = function(req, res, next){
 /********* AUTH CONFIG *********/
 
 var googleAuth = {
-	clientID: config.auth.google.clientId,
-	clientSecret: config.auth.google.secret,
-	callbackURL: config.auth.google.callback
+	clientID: config.authGoogleClientId,
+	clientSecret: config.authGoogleSecret,
+	callbackURL: config.authGoogleCallback
 }
 
 var facebookAuth = {
