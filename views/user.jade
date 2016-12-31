@@ -7,3 +7,24 @@ block scripts
 
 block content
 	div Welcome to the user page!
+	
+	div
+		h3 Past Workouts
+		table
+			thead
+				tr
+					th Date
+					th Intervals
+					th Total Distance
+					th Total Time
+					th Average Split
+					th 
+			tbody
+				each workout in workouts
+					tr
+						td #{workout.niceDate}
+						td #{workout.intervals.length}
+						td #{workout.allIntervals.distance}
+						td #{workout.allIntervals.duration}
+						td #{workout.allIntervals.split}
+						td <a href='/workout/view/#{workout._id}'>Details</a>

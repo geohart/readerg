@@ -7,3 +7,18 @@ block scripts
 
 block content
 	div Welcome to the workout page!
+	
+	if user != null
+		div
+			p id: #{user.google.id}
+			p token: #{user.google.token}
+			p email: #{user.google.email}
+			p name: #{user.google.name}
+	
+	if workout.userId == null
+		div(class="alert alert-warning", role="alert", style="margin-top:10px;")
+			| Uh oh! This workout doesn't belong to anyone. <a href='/auth/google'>Sign-in with Google to save this workout.</a>
+			
+	div
+		p workout id:
+		p #{workout._id}

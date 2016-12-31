@@ -6,6 +6,7 @@ block scripts
 	script(src="/javascripts/index.js")
 
 block content
+
 	div
 		img(src="/images/banner.png", class="img-responsive", style="max-height:200px;margin:auto;")
 	
@@ -13,7 +14,7 @@ block content
 		h3(style="margin-bottom:25px;") Track your erg workouts with photos.
 	
 	div#uploader
-		form#uploadForm(action="/upload", method="post", enctype="multipart/form-data")
+		form#uploadForm(action="/workout/upload", method="post", enctype="multipart/form-data")
 			div.form-group
 				label(for="choose") Upload a photo of your erg's PM (from the memory screen):
 				input(type="file", id="upload", name="pm", class="filestyle", data-icon="false", data-buttonText="Select Photo", data-size="lg")
@@ -42,7 +43,7 @@ block content
 			div(role="tabpanel", class="tab-pane", id="photo")
 				img#result(class="img-responsive center-block")
 			div(role="tabpanel", class="tab-pane active", id="data")
-				form#stats(action="/save", method="post")
+				form#stats(action="/workout/save", method="post")
 					div.form-group
 						label(for="mydate") Workout Date:
 						input(type="text", id="mydate", name="mydate", class="form-control input-lg", placeholder="Workout Date")

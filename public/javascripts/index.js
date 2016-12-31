@@ -16,7 +16,7 @@ $(function() {
                 console.log(response);
 
 				// call processing step
-				$.get( "/process", { path: response.src }, function(results) {
+				$.get( "/workout/process", { path: response.src }, function(results) {
 					
 					// get today's date
 					var date = new Date();
