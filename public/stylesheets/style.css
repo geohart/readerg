@@ -1,8 +1,102 @@
 body {
-  padding: 50px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+/* MENU AND HEADER STYLING */
+
+div#header{
+	display: flex;
+	flex-direction: row;
+	padding-top:5pt;
+	padding-bottom:5pt;
+	border-bottom: solid 1px #eee;
+	background-color:#f8f8f8;
+}
+
+div#button{
+	padding-left:5pt;
+	padding-right:5pt;
+	align-self:center;
+}
+
+button#menu{}
+
+div#banner{
+	margin:auto;
+	align-self:center;
+}
+
+img#banner{
+	max-height:50px;
+	max-width:250px;
+}
+
+div#menuContainer{
+	position:relative;
+	display:block;
+}
+
+div#overlay{
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	z-index:99;
+	background-color:#444444;
+	opacity:0.5;
+	filter:alpha(opacity=50)
+}
+
+div#menu{
+	display:none;
+	position:fixed;
+	height:100%;
+	width:80%;
+	max-width:250px;
+	top:0;
+	left:0;
+	background-color:#f8f8f8;
+	z-index:100;
+}
+
+div#menu h4{
+	margin-left:5pt;
+	padding-left:5pt;
+	margin-right:5pt;
+	padding-right:5pt;
+	padding-top:10pt;
+	padding-bottom:10pt;
+	border-bottom:solid 1px #eee;
+}
+
+div#menu ul{
+	list-style-type:none;
+	padding-top:5pt;
+	padding-left:0pt;
+}
+
+div#menu li{
+	font-size:15pt;
+	padding-top:10pt;
+	padding-bottom:10pt;
+	padding-left:10pt;
+}
+
+div#menu li.selected{
+	background-color:#ddd;
+}
+
+div#menu a {
+	color: #333;
+}
+
+span.menu-icon{
+	padding-right:5pt;
 }

@@ -19,12 +19,31 @@ html
 		script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js")
 		// bootstrap
 		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", crossorigin="anonymous")
+		// custom slide out menu
+		script(src="/javascripts/menu.js")
 		block scripts
+		
 	body
-		div(class='container')
-			div(style="text-align:right;")
+		div#header
+			div#button
+				button#menu(type="button", class="btn btn-default")
+					span(class="glyphicon glyphicon-menu-hamburger")
+			div#banner
+				img#banner(src="/images/banner2.png")
+		div#menuContainer
+			div#overlay
+			div#menu
 				if user
-					p Welcome, #{user.google.name} | <a href='/auth/logout'>Sign Out</a>
-				else
-					p <a href='/auth/google'>Sign in with Google</a>
+					h4 Welcome, #{user.google.name}
+				ul
+					if user
+						li <a href="/user"><span class="glyphicon glyphicon-heart menu-icon"></span>My Workouts</a>
+						li <a href="/leaderboard"><span class="glyphicon glyphicon-star menu-icon"></span>Leaderboard</a>
+						li <a href="/about"><span class="glyphicon glyphicon-info-sign menu-icon"></span>About</a>
+						li <a href='/auth/logout'><span class="glyphicon glyphicon-log-out menu-icon"></span>Sign Out</a>
+					else
+						li <a href='/auth/google'><span class="glyphicon glyphicon-log-in menu-icon"></span>Sign in with Google</a>
+						li <a href="/leaderboard"><span class="glyphicon glyphicon-star menu-icon"></span>Leaderboard</a>
+						li <a href="/about"><span class="glyphicon glyphicon-info-sign menu-icon"></span>About</a>
+		div(class='container')
 			block content
