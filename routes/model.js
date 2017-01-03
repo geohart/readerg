@@ -84,14 +84,10 @@ db.once('open', function() {
 			email: String,
 			name: String,
 		 }
-	  /*, username: String
-	  , password: String
-	  , name: String*/
 	  , gender: String
 	  , dob: Number
 	  , photo: String
 	  , workouts: [workoutSchema]
-	  , verified: Number
 	  , created: Number
 	});
 	/*userSchema.pre('save', function(callback) {

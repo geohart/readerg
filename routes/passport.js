@@ -1,12 +1,14 @@
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy; 
 var model = require('./model');
 var auth = require('./auth');
+var mongoose = require('mongoose');
 
 module.exports = function(passport) {  
 
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
 	});
+	
 	passport.deserializeUser(function(id, done) {
 		model.User.findById(id, function(err, user) {
 			done(err, user);

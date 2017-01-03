@@ -7,5 +7,5 @@ module.exports = {
 	'database' : process.env.DATABASE_URL,
 	'authGoogleClientId': process.env.AUTH_GOOGLE_ID,
 	'authGoogleSecret': process.env.AUTH_GOOGLE_SECRET,
-	'authGoogleCallback': 'http://localhost:5000/auth/google/callback'
+	'authGoogleCallbackHostname': process.env.AUTH_GOOGLE_CALLBACK_HOSTNAME
 };

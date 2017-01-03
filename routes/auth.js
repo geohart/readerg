@@ -46,7 +46,7 @@ reroute = function(req, res, next){
 var googleAuth = {
 	clientID: config.authGoogleClientId,
 	clientSecret: config.authGoogleSecret,
-	callbackURL: config.authGoogleCallback
+	callbackURL: config.authGoogleCallbackHostname + '/auth/google/callback'
 }
 
 var facebookAuth = {
