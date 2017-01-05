@@ -1,4 +1,5 @@
 var express	= require('express');
+var mongoose = require('mongoose');
 var multer		= require('multer');
 var auth 		= require('./auth');
 var func			= require('./functions');
@@ -38,18 +39,13 @@ router.get('/view/:id?', auth.reroute, function(req, res, next){
 	
 	// look for workout
 	if(workoutId){
-	
+		
 		// get workout
 		model.Workout.findOne({ _id: workoutId }, function (err, workout) {
 
 			if (err) { return next(err); }
 			
 			if(workout){
-				
-				console.log("STATUS:");
-				console.log(req.user);
-				console.log(workout.userId);
-				console.log(req.user == null);
 				
 				// save workout id to session
 				req.session.workoutId = workoutId;
@@ -61,7 +57,6 @@ router.get('/view/:id?', auth.reroute, function(req, res, next){
 					workout.userId = req.user._id;
 					workout.save(function(err, user){
 						if(err) return next(err);
-							console.log("WE JUST SAVED THE WORKOUT");
 							// show workout page
 							res.render('workout', {
 								  title: 'ReadErg'

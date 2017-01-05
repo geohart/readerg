@@ -10,6 +10,9 @@ module.exports = function(passport) {
 	});
 	
 	passport.deserializeUser(function(id, done) {
+		console.log('The id is: ' + id);
+		console.log(typeof id);
+		console.log(mongoose.Types.ObjectId.isValid(id));
 		model.User.findById(id, function(err, user) {
 			done(err, user);
 		});

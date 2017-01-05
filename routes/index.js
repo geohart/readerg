@@ -2,6 +2,7 @@ var express 	= require('express');
 var router		= express.Router();
 var model 		= require('./model');
 var auth 		= require('./auth');
+var mongoose = require('mongoose');
 
 /*********** SETUP OTHER ROUTES ***********/
 
@@ -12,12 +13,7 @@ router.use('/workout', require('./workout')); // setup pathway to workout action
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'ReadErg', user: req.user });
-});
-
-/* GET test page. */
-router.get('/test', function(req, res, next) {
-  res.render('test', { title: 'ReadErg' });
+	res.render('index', { title: 'ReadErg', user: req.user });
 });
 
 /* GET user view */

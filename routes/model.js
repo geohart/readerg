@@ -4,6 +4,9 @@ var func 	= require('./functions');
 var config	= require('../config');  
 var bcrypt = require('bcrypt-nodejs');
 
+// use default promise handler instead of deprecated mongoose promise
+mongoose.Promise = global.Promise;
+
 // connect to database
 mongoose.connect(config.database);
 
@@ -39,8 +42,8 @@ db.once('open', function() {
 	// workout
 	var workoutSchema = new mongoose.Schema();
 	workoutSchema.add({
-		  uploadId: String
-		, userId: String  
+		  photoId: ObjectId
+		, userId: ObjectId  
 		, date: Number
 		, intervals: [intervalSchema]
 		, rest: Number
