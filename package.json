@@ -1,6 +1,9 @@
 {
   "name": "readerg",
   "version": "0.0.0",
+  "engines": {
+    "node": "4.8.4"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
